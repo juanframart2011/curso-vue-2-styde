@@ -15,7 +15,9 @@
 
             <div class="welcome">
                 
-                Bienvenido {{ name }}
+                Bienvenido {{ name }}<br>
+                Bienvenido {{ name | upper }}<br>
+                Bienvenido {{ name | title }}<br>
             </div>
 
             <footer class="footer">
@@ -25,10 +27,18 @@
         
         <script src="https://unpkg.com/vue@2.1.8/dist/vue.js"></script>
         <script>
+            Vue.filter('title',(value) =>{
+                return 'El duo de La Historia ' + value.toUpperCase();
+            });
             var vm = new Vue({
                 el: ".welcome",
                 data:{
                     name: 'Wisin y Yandel'
+                },
+                filters: {
+                    upper: (value) =>{
+                        return value.toUpperCase();
+                    }
                 }
             });
         </script>
