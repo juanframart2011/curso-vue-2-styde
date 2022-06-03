@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Leccion 2 Vue</title>
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+        <!-- Optional theme -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    </head>
+    <body>
+
+        <div id="app" class="container">
+
+            <div class="row">
+                <div class="col-md-8">
+                    <h1>Bienvenido {{ name.toUpperCase() }} : {{ reversedName }}</h1>
+
+                    <h2 v-once>Project {{ project.toUpperCase() }}</h2>
+
+                    <h3 v-text="name"></h3>
+                    <h4 v-html="nameHtml"></h4>
+                    <button class="btn" type="button">Saludar</button>
+                </div>
+            </div>
+        </div>
+        
+        <script src="https://unpkg.com/vue@2.1.8/dist/vue.js"></script>
+        <script src="https://code.jquery.com/jquery-3.1.1.js"></script>
+        <script>
+            var vm = new Vue({
+                el: "#app",
+                data:{
+                    name:'Leo',
+                    nameHtml: '<b>Lesson 2</b>',
+                    team:true,
+                    project: 'Lesson 2'
+                },
+                computed: {
+                    reversedName: function(){
+                        return this.name.split('').reverse().join('');
+                    }
+                }
+            })
+
+            $( ".btn" ).click( function(){
+
+            });
+        </script>
+    </body>
+</html>

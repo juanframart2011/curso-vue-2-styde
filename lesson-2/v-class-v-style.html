@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Leccion 2 Vue</title>
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+        <!-- Optional theme -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    </head>
+    <body>
+
+        <div id="app" class="container">
+
+            {{ $data }}
+
+            <div class="row">
+                <div class="col-md-8 offset-md-2">
+                    <h4>¿has trabajado con VueJs?</h4>
+                    <div class="radio">
+                        <label class="radio-inline">
+                            <input type="radio" v-model="vue.exp" v-bind:value="true">Sí
+                        </label>
+                        <label class="radio-inline">
+                            <input type="radio" v-model="vue.exp" :value="false">No
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <template v-if="vue.exp" class="row">
+                <div class="col-md-8 offset-md-2">
+                    
+                    <div class="form-group">
+                        <label for="vue_years">¿Cuantos años de experiencia tienes con Vue?</label>
+                        <input type="number" v-model="vue.years" class="form-control">
+                    </div>
+                </div>
+
+                <div class="col-md-8 offset-md-2">
+                    
+                    <div v-if="vue.years < 2" class="form-group">
+                        <label for="vue_years">¿Que te motivó a aprender Vue?</label>
+                        <textarea v-model="vue.description" class="form-control"></textarea>
+                        <p v-if="vue.description.trim() == ''" class="help-block">El campo es obligatorio</p>
+                        <p v-else-if="vue.description.trim().length < 5" class="help-block">La descripción es muy corta</p>
+                        <p v-else-if="vue.description.trim().length > 20" class="help-block">La descripción es muy larga</p>
+
+                        <p v-if="descriptionError != ''" class="help-block">{{ descriptionError }}</p>
+                    </div>
+
+                    <div v-if="vue.years >= 2" class="form-group">
+                        <label for="vue_years">Cuéntanos tu experiencia con VueJs</label>
+                        <textarea v-model="vue.description" class="form-control"></textarea>
+                    </div>
+                </div>
+            </template>           
+        </div>
+        
+        <script src="https://unpkg.com/vue@2.1.8/dist/vue.js"></script>
+        <script src="https://code.jquery.com/jquery-3.1.1.js"></script>
+        <script>
+            var vm = new Vue({
+                el: "#app",
+                data:{
+                    vue:{
+                        exp: null,
+                        years: 0,
+                        description: ''
+                    }
+                },
+                computed: {
+                    descriptionError: function(){
+                        
+                        var val = this.vue.description.trim();
+                        
+                        if( val == '' ){
+                            return 'El campo es obligatorio';
+                        }
+
+                        if( val.length < 5 ){
+                            return 'El campo es menor a 5 caracteres';
+                        }
+
+                        if( val.length > 20 ){
+                            return 'El campo es mayor a 20 caracteres';
+                        }
+                    }
+                }
+            });
+        </script>
+    </body>
+</html>
